@@ -13,7 +13,6 @@ function App() {
   const searchValue = React.useRef("");
   const [movieList, setMovieList] = useState([]);
   const [searchTerm, setSearchTerm] = useState("");
-  const exampleInput = useRef();
 
   const handleOnSubmit = (e) => {
     e.preventDefault();
@@ -23,8 +22,8 @@ function App() {
     }
   };
 
-  const handleOnChange = () => {
-    setSearchTerm(exampleInput.current.value);
+  const handleOnChange = (event) => {
+    setSearchTerm(event.target.value);
     console.log(searchTerm);
   };
 
@@ -51,7 +50,6 @@ function App() {
             type="text"
             placeholder="Search..."
             value={searchTerm}
-            ref={exampleInput}
             onChange={handleOnChange}
           />
         </form>
