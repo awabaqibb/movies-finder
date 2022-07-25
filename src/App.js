@@ -1,7 +1,7 @@
 import Movie from "./components/Movie";
 import MovieList from "./components/MovieList";
 import Search from "./components/Search";
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useRef } from "react";
 
 const FEATURED_API =
   "https://api.themoviedb.org/3/discover/movie?api_key=0dd1f6130aeb52d239896d571a9aa9aa&language=en-US&sort_by=popularity.desc&include_adult=false&include_video=false&page=1&with_watch_monetization_types=flatrate";
@@ -10,8 +10,10 @@ const SEARCH_API =
   "https://api.themoviedb.org/3/search/movie?api_key=0dd1f6130aeb52d239896d571a9aa9aa&language=en-US&page=1&include_adult=false&query=";
 
 function App() {
+  const searchValue = React.useRef("");
   const [movieList, setMovieList] = useState([]);
   const [searchTerm, setSearchTerm] = useState("");
+  const exampleInput = useRef();
 
   const handleOnSubmit = (e) => {
     e.preventDefault();
@@ -21,8 +23,9 @@ function App() {
     }
   };
 
-  const handleOnChange = (e) => {
-    setSearchTerm(e.target.value);
+  const handleOnChange = () => {
+    setSearchTerm(exampleInput.current.value);
+    console.log(searchTerm);
   };
 
   async function getMovies(API) {
@@ -48,6 +51,7 @@ function App() {
             type="text"
             placeholder="Search..."
             value={searchTerm}
+            ref={exampleInput}
             onChange={handleOnChange}
           />
         </form>
